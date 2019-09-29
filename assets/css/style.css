@@ -1,0 +1,11 @@
+/* Background pattern from Toptal Subtle Patterns */
+body{
+    background-image: url(../images/trees/trees.png);
+    background-color: #d6e8ed;
+    font-family: sans-serif;
+    color: #2f3644;
+}
+
+#mainContent{
+    margin-top: 6em;
+}
