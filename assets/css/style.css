@@ -18,6 +18,22 @@ p{
     font-size:1.4rem;
 }
 
+.clock{
+    position: absolute;
+    top:1em;
+    right:2em;
+    padding: .05em .3em;
+    width:4em;
+    font-family: 'digitalClock', monospace;
+    font-size: 2.1em;
+    letter-spacing: 0.05em;
+    color:greenyellow;
+    background-color: black;
+    border: 3px solid;
+    border-image: radial-gradient(rgb(100,100,100),rgb(200,200,200)) 1;
+    box-shadow: 2px 2px 2px grey;
+}
+
 .corkBoard{
     background-image: url(../images/subtle-patterns/cork-board.png);
     background-color: #deb494;
@@ -60,6 +76,50 @@ p{
     margin:0;
 }
 
+.check{
+    display: block;
+    position: absolute;
+    top:.4em;
+    right:.7em;
+    font-size: 2.5em;
+    color:green;
+}
+
+.cross{
+    display: block;
+    position: absolute;
+    top:.4em;
+    right:.7em;
+    font-size: 2.5em;
+    color:red;
+}
+
+.pauseResume{
+    display: block;
+    position: absolute;
+    top:2.14em;
+    right:3.2em;
+    margin: 0;
+    padding: 0;
+    font-size: 1.5em;
+    color:greenyellow;
+}
+
 #mainContent{
     margin-top: 6em;
+}
+
+@font-face {
+    font-family: digitalClock;
+    src: url(../fonts/ds_digital/DS-DIGI.TTF);
+}
+
+@font-face {
+    font-family: Indie Flower;
+    src: url(../fonts/GoogleFonts/Indie_Flower/IndieFlower-Regular.ttf);
+}
+
+@font-face {
+    font-family: Alfa Slab One;
+    src: url(../fonts/GoogleFonts/Alfa_Slab_One/AlfaSlabOne-Regular.ttf);
 }

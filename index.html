@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=.9, shrink-to-fit=no">
     <title>Trivia Game</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/cb6ab6cd91.js" crossorigin="anonymous"></script>
     <link href="assets/css/style.css" rel="stylesheet" type="text/css">
     <link href="assets/css/navbar.css" rel="stylesheet" type="text/css">
-    <script src="https://kit.fontawesome.com/cb6ab6cd91.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat|Indie+Flower|Alfa+Slab+One&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -18,7 +17,10 @@
 
                 <!-- Cork Board-->
                 <div class="jumbotron corkBoard">
-                    <h1 class="text-center magnets">CLASS ACTIVITIES</h1>
+                    <h1 class="magnets">CLASS ACTIVITIES</h1>
+                    <span class="clock">00:00</span>
+                    <i class="fas fa-pause-circle pauseResume"></i>
+                    <i class="fas fa-play-circle pauseResume" style="display:none"></i>
 
                     <div class="row">
 
@@ -27,16 +29,16 @@
                             <div class="jumbotron paper">
                                 <i class="fa fa-thumbtack tack"></i>
                                 <h4 class="text">Grades</h4>
-                                <p>Wins: 0</p>
-                                <p>Losses: 0</p>
+                                <p id="wins">Wins: 0</p>
+                                <p id="losses">Losses: 0</p>
                             </div>
                         </div>
 
                         <!-- Question -->
                         <div class="col-xl-4 col-lg-4 col-md-8">
-                            <div class="jumbotron paper">
+                            <div class="jumbotron paper" id="question">
                                 <i class="fa fa-thumbtack tack"></i>
-                                <h3 class="text" id="question">Pop Quiz</h3>
+                                <h3 class="text">Pop Quiz</h3>
                                 <p> test test Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque qui vero corrupti distinctio, magnam hic. Itaque, officia, fuga assumenda et, reprehenderit cupiditate earum corrupti impedit quaerat odio eius ea laudantium?</p>
                             </div>
                         </div>
@@ -45,33 +47,41 @@
                         <div class="col-xl-6 col-lg-5 col-md-12">
                             <div class="row">
                                 <div class="col-xl-6 col-lg-12 col-sm-6">
-                                    <div class="jumbotron paper">
+                                    <div class="jumbotron paper answer"  id="a1">
                                         <i class="fa fa-thumbtack tack"></i>
-                                        <h4 class="text" id="question">Answer 1</h4>
+                                        <i class="fad fa-check-circle check"></i>
+                                        <i class="fad fa-times-circle cross"></i>
+                                        <h4 class="text">Answer 1</h4>
                                         <p> test test Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque qui </p>
                                     </div>
                                 </div>
 
                                 <div class="col-xl-6 col-lg-12 col-sm-6">
-                                    <div class="jumbotron paper">
+                                    <div class="jumbotron paper answer" id="a2">
                                         <i class="fa fa-thumbtack tack"></i>
-                                        <h4 class="text" id="question">Answer 2</h4>
+                                        <i class="fad fa-check-circle check"></i>
+                                        <i class="fad fa-times-circle cross"></i>
+                                        <h4 class="text">Answer 2</h4>
                                         <p> test test Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque qui </p>
                                     </div>
                                 </div>
 
                                 <div class="col-xl-6 col-lg-12 col-sm-6">
-                                    <div class="jumbotron paper">
+                                    <div class="jumbotron paper answer" id="a3">
                                         <i class="fa fa-thumbtack tack"></i>
-                                        <h4 class="text" id="question">Answer 3</h4>
+                                        <i class="fad fa-check-circle check"></i>
+                                        <i class="fad fa-times-circle cross"></i>
+                                        <h4 class="text">Answer 3</h4>
                                         <p> test test Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque qui </p>
                                     </div>
                                 </div>
 
                                 <div class="col-xl-6 col-lg-12 col-sm-6">
-                                    <div class="jumbotron paper">
+                                    <div class="jumbotron paper answer" id="a4">
                                         <i class="fa fa-thumbtack tack"></i>
-                                        <h4 class="text" id="question">Answer 4</h4>
+                                        <i class="fad fa-check-circle check"></i>
+                                        <i class="fad fa-times-circle cross"></i>
+                                        <h4 class="text">Answer 4</h4>
                                         <p> test test Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque qui </p>
                                     </div>
                                 </div>

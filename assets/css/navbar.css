@@ -20,3 +20,8 @@
         display: inline;
     }
 }
+
+@font-face {
+    font-family: Montserrat;
+    src: url(../fonts/GoogleFonts/Montserrat/Montserrat-Regular.ttf);
+}
