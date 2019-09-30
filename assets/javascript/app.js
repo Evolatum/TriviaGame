@@ -55,7 +55,7 @@ let clock = {
 let tE = {
     //Game properties
     waitT:6*1000, //Time between questions
-    questionT:3, //Time to give an answer
+    questionT:10, //Time to give an answer
     wins:0, //Wins counter
     losses:0, //Losses counter
     currentQ:0, //Index of current random question
@@ -64,12 +64,35 @@ let tE = {
     timeout:"", //For receiving setTimeout
     onTimeout:false, //For checking if on timeout
 
-    //Array of objects that have the question(q), the answers(a1-a4) and the correct answer.
+    //Array of objects that have the question(q), the answers(a1-a4) and the correct answer (which directs to a1-a4).
     questions: [
-        {q:"Q1,a3",a1:"a1aaa",a2:"a2aaa",a3:"a3aaa",a4:"a4aaa",correctA:"a3"},
-        {q:"Q2,a2",a1:"a1aaa",a2:"a2aaa",a3:"a3aaa",a4:"a4aaa",correctA:"a2"},
-        {q:"Q3,a1",a1:"a1aaa",a2:"a2aaa",a3:"a3aaa",a4:"a4aaa",correctA:"a1"},
-        {q:"Q4,a4",a1:"a1aaa",a2:"a2aaa",a3:"a3aaa",a4:"a4aaa",correctA:"a4"}
+        {q:"What is the biggest island of the world?",a1:"Iceland",a2:"Australia",a3:"Austria",a4:"Greenland",correctA:"a4"},
+        {q:"Which of the following is NOT a Shakespeare play:",a1:"Hamlet",a2:"Cordelia",a3:"Macbeth",a4:"Othello",correctA:"a2"},
+        {q:"Which is the largest continent?",a1:"Asia",a2:"Africa",a3:"America",a4:"Antartica",correctA:"a1"},
+        {q:"How many degrees are in a circle?",a1:"180",a2:"270",a3:"360",a4:"450",correctA:"a3"},
+        {q:"What is the capital of Italy?",a1:"Venice",a2:"Rome",a3:"Milan",a4:"Florence",correctA:"a2"},
+        {q:"Where is the Sahara Desert situated?",a1:"Africa",a2:"Asia",a3:"America",a4:"Australia",correctA:"a3"},
+        {q:"How many sides are in a hexagon?",a1:"4",a2:"6",a3:"8",a4:"12",correctA:"a2"},
+        {q:"Which of the following is NOT part of the European Union?",a1:"Switzerland",a2:"Austria",a3:"Croatia",a4:"Finland",correctA:"a1"},
+        {q:"What is the national sport in the United States?",a1:"Football",a2:"Soccer",a3:"Baseball",a4:"Basketball",correctA:"a3"},
+        {q:"Who is the owner of Microsoft?",a1:"Steve Jobs",a2:"Mark Zuckerberg",a3:"John Microsoft",a4:"Bill Gates",correctA:"a4"},
+        {q:"What is another word for Dictionary?",a1:"Lexicon",a2:"Worder",a3:"Wordary",a4:"Diction",correctA:"a1"},
+        {q:"How many squares are in a chessboard?",a1:"64",a2:"49",a3:"36",a4:"25",correctA:"a1"},
+        {q:"Which country invented paper?",a1:"England",a2:"Egypt",a3:"Greece",a4:"China",correctA:"a4"},
+        {q:"How many liters of water fit in a cubic meter?",a1:"1",a2:"10",a3:"100",a4:"1000",correctA:"a4"},
+        {q:"Which blood type is known as the universal donor?",a1:"AB+",a2:"AB-",a3:"O+",a4:"O-",correctA:"a4"},
+        {q:"Which blood type is know as the universal recipient?",a1:"AB+",a2:"AB-",a3:"O+",a4:"O-",correctA:"a1"},
+        {q:"Which country was the first to accept women's wote?",a1:"Finland",a2:"New Zealand",a3:"Norway",a4:"Sweden",correctA:"a2"},
+        {q:"Which of the following rivers is situated in London?",a1:"Seine",a2:"Amazonas",a3:"Thames",a4:"Irving",correctA:"a3"},
+        {q:"Which color absorbs the most light?",a1:"White",a2:"Black",a3:"Brown",a4:"Blue",correctA:"a2"},
+        {q:"What is the chemical symbol of iron?",a1:"Fe",a2:"In",a3:"Rn",a4:"St",correctA:"a1"},
+        {q:"Which are the primary colors in print?",a1:"Red, green, and blue",a2:"Red, blue, and yellow",a3:"Cyan, magenta, yellow, and black",a4:"Purple, green, orange, and black",correctA:"a3"},
+        {q:"What is a tomato?",a1:"Vegetable",a2:"Fruit",a3:"Seed",a4:"Grain",correctA:"a2"},
+        {q:"Which of the following is NOT a botanical berry?",a1:"Strawberry",a2:"Blueberry",a3:"Grape",a4:"Banana",correctA:"a1"},
+        {q:"Ailurophobe is the extreme fear of?",a1:"Death",a2:"Flying",a3:"Eagles",a4:"Cats",correctA:"a4"},
+        {q:"In which country did Halloween originate?",a1:"USA",a2:"Ireland",a3:"England",a4:"Mexico",correctA:"a2"},
+        {q:"What is the common name for young whale?",a1:"Cub",a2:"Willy",a3:"Calf",a4:"Red",correctA:"a3"},
+        //{q:"",a1:"",a2:"",a3:"",a4:"",correctA:""},
     ],
 
     //Initialize checks and crosses in answers
@@ -87,6 +110,7 @@ let tE = {
         tE.currentQ = randomNumE(tE.questions.length);
         tE.currentA = tE.questions[tE.currentQ].correctA;
         tE.currentA = tE.questions[tE.currentQ][tE.currentA];
+        console.log(`Randomly chose question ${tE.currentQ} out of ${tE.questions.length}`);
         $("#question").children("h3").text("Pop Quiz");
         $("#question").children("p").text(tE.questions[tE.currentQ].q);
         $("#a1").children("p").text(tE.questions[tE.currentQ].a1);
