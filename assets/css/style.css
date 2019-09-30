@@ -52,7 +52,7 @@ p{
     padding: 1.5em;
 }
 
-.magnets{
+.magnetsTitle{
     position: relative;
     top: -0.2em;
     font-family: 'Alfa Slab One', serif;
@@ -62,6 +62,20 @@ p{
                 2px 2px black, 
                 3px 3px black, 
                 5px 5px 5px rgb(41, 41, 41);
+}
+
+.magnetsSettings{
+    font-family: 'Alfa Slab One', serif;
+    font-size: 2.8rem;
+    color:rgb(89, 81, 160);
+    text-shadow:1px 1px black, 
+                2px 2px black, 
+                3px 3px 3px rgb(41, 41, 41);
+}
+
+.magnetsSettings:hover,.magnetsSettings:active{
+    color:rgb(81, 151, 160);
+    cursor: pointer;
 }
 
 .tack{
@@ -103,6 +117,15 @@ p{
     padding: 0;
     font-size: 1.5em;
     color:greenyellow;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #mainContent{

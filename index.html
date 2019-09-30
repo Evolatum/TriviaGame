@@ -17,10 +17,11 @@
 
                 <!-- Cork Board-->
                 <div class="jumbotron corkBoard">
-                    <h1 class="magnets">CLASS ACTIVITIES</h1>
+                    <h1 class="magnetsTitle">CLASS ACTIVITIES</h1>
                     <span class="clock">00:00</span>
-                    <i class="fas fa-pause-circle pauseResume"></i>
+                    <i class="fas fa-pause-circle pauseResume" style="display:none"></i>
                     <i class="fas fa-play-circle pauseResume" style="display:none"></i>
+                    <i class="fas fa-minus-circle pauseResume"></i>
 
                     <div class="row">
 
@@ -28,9 +29,10 @@
                         <div class="col-xl-2 col-lg-3 col-md-4">
                             <div class="jumbotron paper" id="grades">
                                 <i class="fa fa-thumbtack tack"></i>
-                                <h4 class="text">Grades</h4>
-                                <p id="wins">Wins: 0</p>
-                                <p id="losses">Losses: 0</p>
+                                <h4 class="text">New Game</h4>
+                                <p id="wins"></p>
+                                <p id="losses"></p>
+                                <button class="btn btn-secondary" id="newGameBtn">Start</button>
                             </div>
                         </div>
 
@@ -38,13 +40,13 @@
                         <div class="col-xl-4 col-lg-4 col-md-8">
                             <div class="jumbotron paper" id="question">
                                 <i class="fa fa-thumbtack tack"></i>
-                                <h3 class="text">Pop Quiz</h3>
-                                <p></p>
+                                <h3 class="text">Instructions</h3>
+                                <p>A question will be displayed, click one of the four answers on the right. You will have to wait a couple of seconds for the next question. Good luck!</p>
                             </div>
                         </div>
 
                         <!-- Answers -->
-                        <div class="col-xl-6 col-lg-5 col-md-12">
+                        <div class="col-xl-6 col-lg-5 col-md-12" id="answers" style="display:none">
                             <div class="row">
                                 <div class="col-xl-6 col-lg-12 col-sm-6">
                                     <div class="jumbotron paper answer"  id="a1">

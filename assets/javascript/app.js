@@ -54,8 +54,8 @@ let clock = {
 //Trivia game engine (tE) manages all game-related properties
 let tE = {
     //Game properties
-    waitT:6*1000, //Time between questions
-    questionT:15, //Time to give an answer
+    waitTime:6, //Time between questions
+    questionTime:15, //Time to give an answer
     wins:0, //Wins counter
     losses:0, //Losses counter
     currentQ:0, //Index of current random question
@@ -65,10 +65,7 @@ let tE = {
     onTimeout:false, //For checking if on timeout
     
     //Array with already asked questions so that they don't repeat, and that you can restart game
-    askedQ:[],
-
-    //Array of objects that have the question(q), the answers(a1-a4) and the correct answer (which directs to a1-a4).
-    questions: [
+    askedQ:[
         {q:"What is the biggest island of the world?",a1:"Iceland",a2:"Australia",a3:"Austria",a4:"Greenland",correctA:"a4"},
         {q:"Which of the following is NOT a Shakespeare play:",a1:"Hamlet",a2:"Cordelia",a3:"Macbeth",a4:"Othello",correctA:"a2"},
         {q:"Which is the largest continent?",a1:"Asia",a2:"Africa",a3:"America",a4:"Antartica",correctA:"a1"},
@@ -98,6 +95,9 @@ let tE = {
         //{q:"",a1:"",a2:"",a3:"",a4:"",correctA:""},
     ],
 
+    //Array of objects that have the question(q), the answers(a1-a4) and the correct answer (which directs to a1-a4).
+    questions:[],
+
     //Hides marks (checks and crosses) in answers
     hideMarks:function(){
         $(".check").hide();
@@ -109,7 +109,7 @@ let tE = {
         tE.onTimeout=false;
         tE.hideMarks();
         tE.playing=true;
-        clock.start(tE.questionT);
+        clock.start(tE.questionTime);
         tE.currentQ = randomNumE(tE.questions.length);
         tE.currentA = tE.questions[tE.currentQ].correctA;
         tE.currentA = tE.questions[tE.currentQ][tE.currentA];
@@ -142,7 +142,7 @@ let tE = {
             You passed the Pop Quiz! Great job!!`);
         $(`#${tE.questions[tE.currentQ].correctA}`).children(".check").show();
         $("#wins").text(`Wins: ${++tE.wins}`);
-        tE.timeout = setTimeout(tE.newQ,tE.waitT);
+        tE.timeout = setTimeout(tE.newQ,tE.waitTime*1000);
         tE.onTimeout = true;
         tE.removeQ();
     },
@@ -157,7 +157,7 @@ let tE = {
         $(`#${tE.questions[tE.currentQ].correctA}`).children(".check").show();
         $(`#${selectedA}`).children(".cross").show();
         $("#losses").text(`Losses: ${++tE.losses}`);
-        tE.timeout = setTimeout(tE.newQ,tE.waitT);
+        tE.timeout = setTimeout(tE.newQ,tE.waitTime*1000);
         tE.onTimeout = true;
         tE.removeQ();
     },
@@ -170,7 +170,7 @@ let tE = {
             You were checked as absent for the Pop Quiz, the correct answer was ${tE.currentA}.`);
         $(`#${tE.questions[tE.currentQ].correctA}`).children(".check").show();
         $("#losses").text(`Losses: ${++tE.losses}`);
-        tE.timeout = setTimeout(tE.newQ,tE.waitT);
+        tE.timeout = setTimeout(tE.newQ,tE.waitTime*1000);
         tE.onTimeout = true;
         tE.removeQ();
     },
@@ -190,7 +190,7 @@ let tE = {
     //Resume game
     resume:function(){
         if(tE.onTimeout){
-            tE.timeout = setTimeout(tE.newQ,tE.waitT);
+            tE.timeout = setTimeout(tE.newQ,tE.waitTime*1000);
         } else{
             clock.resume();
             tE.playing=true;
@@ -206,8 +206,9 @@ let tE = {
             tE.playing = false;
             $(".fa-pause-circle").hide();
             $(".fa-play-circle").hide();
+            $(".fa-minus-circle").show();
             clearTimeout(tE.timeout)
-            setTimeout(tE.gameEnd,tE.waitT);
+            setTimeout(tE.gameEnd,tE.waitTime*1000);
         }
     },
 
@@ -219,6 +220,7 @@ let tE = {
         endBtn.attr("id","newGameBtn");
         endBtn.text("New game");
         $("#grades").append(endBtn);
+        tE.addSettings();
 
         $("#grades").children("h4").text("Play again?");
         $("#grades").children("p").text("");
@@ -230,33 +232,78 @@ let tE = {
             You have finished all ${tE.askedQ.length} pop quizzes.
             You answered correctly ${tE.wins} times, and failed (or took too long to answer) ${tE.losses} questions.
             Thanks for playing!`);
-        $("#a1").hide();
-        $("#a2").hide();
-        $("#a3").hide();
-        $("#a4").hide();
+        $("#answers").hide();
     },
 
     //Restarts game values and questions
     newGame:function(){
         $("#newGameBtn").remove();
+        $("#settings").remove();
         $(".fa-pause-circle").show();
+        $(".fa-minus-circle").hide();
         tE.wins = 0;
         tE.losses = 0;
         tE.questions = tE.askedQ;
         tE.askedQ = [];
-        $("#a1").show();
-        $("#a2").show();
-        $("#a3").show();
-        $("#a4").show();
+        $("#answers").show();
         $("#grades").children("h4").text("Grades");
         $("#wins").text("Wins: 0");
         $("#losses").text("Losses: 0");
         tE.newQ();
+    },
+
+    //Add settings to the right
+    addSettings:function(){
+        var divCol = $("<div>");
+        divCol.attr("class","col-xl-6 col-lg-5 col-md-12");
+        divCol.attr("id", "settings");
+        divCol.html(`
+            <div class="jumbotron paper">
+                <i class="fa fa-thumbtack tack"></i>
+                <h3 class="text">Settings</h3>
+                <p>
+                    <span class="magnetsSettings unselectable" id="plusQTime">+</span>
+                    <span class="magnetsSettings unselectable" id="minusQTime">-</span>
+                    Time for questions: <span id=qTime>${tE.questionTime}</span> seconds
+                </p>
+                <p>
+                    <span class="magnetsSettings unselectable" id="plusWTime">+</span>
+                    <span class="magnetsSettings unselectable" id="minusWTime">-</span>
+                    Time between questions: <span id=wTime>${tE.waitTime}</span> seconds
+                </p>
+            </div>`);
+        $(".corkBoard").children(".row").append(divCol);
+    },
+
+    //Change game settings
+    settings:function(clicked){
+        switch(clicked) {
+            case "plusQTime":
+                if(tE.questionTime<60){
+                    $("#qTime").text(`${++tE.questionTime}`);
+                }
+                break;
+            case "minusQTime":
+                if(tE.questionTime>5){
+                    $("#qTime").text(`${--tE.questionTime}`);
+                }
+                break;
+            case "plusWTime":
+                if(tE.waitTime<10){
+                    $("#wTime").text(`${++tE.waitTime}`);
+                }
+                break;
+            case "minusWTime":
+                if(tE.waitTime>2){
+                    $("#wTime").text(`${--tE.waitTime}`);
+                }
+                break;
+          } 
     }
 }
 
 $(document).ready(function() {
-    tE.newQ();
+    tE.addSettings();
 
     //When clicking an answer
     $(document).on("click", ".answer",function() {
@@ -277,6 +324,11 @@ $(document).ready(function() {
     //Start new game
     $(document).on("click", "#newGameBtn",function() {
         tE.newGame();
+    });
+
+    //When clicking on settings magnets
+    $(document).on("click", ".magnetsSettings",function() {
+        tE.settings($(this).attr('id').toString());
     });
 });
 
