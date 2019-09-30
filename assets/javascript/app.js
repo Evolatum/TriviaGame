@@ -225,6 +225,8 @@ let tE = {
         $("#grades").children("h4").text("Play again?");
         $("#grades").children("p").text("");
 
+        $(".clock").text("00:00");
+
 
         //Display score & game end message
         $("#question").children("h3").text("No more quizzes!");
