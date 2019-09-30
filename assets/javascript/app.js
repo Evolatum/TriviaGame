@@ -55,7 +55,7 @@ let clock = {
 let tE = {
     //Game properties
     waitT:6*1000, //Time between questions
-    questionT:10, //Time to give an answer
+    questionT:15, //Time to give an answer
     wins:0, //Wins counter
     losses:0, //Losses counter
     currentQ:0, //Index of current random question
@@ -63,6 +63,9 @@ let tE = {
     playing:false, //Check if answers are clickable
     timeout:"", //For receiving setTimeout
     onTimeout:false, //For checking if on timeout
+    
+    //Array with already asked questions so that they don't repeat, and that you can restart game
+    askedQ:[],
 
     //Array of objects that have the question(q), the answers(a1-a4) and the correct answer (which directs to a1-a4).
     questions: [
@@ -95,8 +98,8 @@ let tE = {
         //{q:"",a1:"",a2:"",a3:"",a4:"",correctA:""},
     ],
 
-    //Initialize checks and crosses in answers
-    init:function(){
+    //Hides marks (checks and crosses) in answers
+    hideMarks:function(){
         $(".check").hide();
         $(".cross").hide();
     },
@@ -104,7 +107,7 @@ let tE = {
     //Generate a new random question from the array and display it
     newQ: function(){
         tE.onTimeout=false;
-        tE.init();
+        tE.hideMarks();
         tE.playing=true;
         clock.start(tE.questionT);
         tE.currentQ = randomNumE(tE.questions.length);
@@ -121,10 +124,12 @@ let tE = {
 
     //Receive the answer clicked and call the corresponding method
     checkA:function(selectedA){
-        if(selectedA===tE.questions[tE.currentQ].correctA&&tE.playing){
+        if(tE.playing){
+            if(selectedA===tE.questions[tE.currentQ].correctA){
             tE.rightA();
-        } else if(tE.playing){
+            } else{
             tE.wrongA(selectedA);
+            }
         }
     },
 
@@ -139,6 +144,7 @@ let tE = {
         $("#wins").text(`Wins: ${++tE.wins}`);
         tE.timeout = setTimeout(tE.newQ,tE.waitT);
         tE.onTimeout = true;
+        tE.removeQ();
     },
 
     //Method calld if wrong anser was chosen
@@ -153,6 +159,7 @@ let tE = {
         $("#losses").text(`Losses: ${++tE.losses}`);
         tE.timeout = setTimeout(tE.newQ,tE.waitT);
         tE.onTimeout = true;
+        tE.removeQ();
     },
 
     //Method called if time to answer runs out
@@ -165,8 +172,10 @@ let tE = {
         $("#losses").text(`Losses: ${++tE.losses}`);
         tE.timeout = setTimeout(tE.newQ,tE.waitT);
         tE.onTimeout = true;
+        tE.removeQ();
     },
 
+    //Pause game
     pause:function(){
         if(tE.onTimeout){
             clearTimeout(tE.timeout);
@@ -178,6 +187,7 @@ let tE = {
         $(".fa-play-circle").show();
     },
 
+    //Resume game
     resume:function(){
         if(tE.onTimeout){
             tE.timeout = setTimeout(tE.newQ,tE.waitT);
@@ -187,6 +197,61 @@ let tE = {
         }
         $(".fa-pause-circle").show();
         $(".fa-play-circle").hide();
+    },
+
+    //Removes asked questions and adds them to array for new game
+    removeQ:function(){
+        tE.askedQ.push(tE.questions.splice(tE.currentQ,1)[0]);
+        if(tE.questions.length <= 0){
+            tE.playing = false;
+            $(".fa-pause-circle").hide();
+            $(".fa-play-circle").hide();
+            clearTimeout(tE.timeout)
+            setTimeout(tE.gameEnd,tE.waitT);
+        }
+    },
+
+    //Displays end score and button to restart game
+    gameEnd:function(){
+        //New game button
+        var endBtn = $("<button>");
+        endBtn.attr("class","btn btn-secondary");
+        endBtn.attr("id","newGameBtn");
+        endBtn.text("New game");
+        $("#grades").append(endBtn);
+
+        $("#grades").children("h4").text("Play again?");
+        $("#grades").children("p").text("");
+
+
+        //Display score & game end message
+        $("#question").children("h3").text("No more quizzes!");
+        $("#question").children("p").text(`
+            You have finished all ${tE.askedQ.length} pop quizzes.
+            You answered correctly ${tE.wins} times, and failed (or took too long to answer) ${tE.losses} questions.
+            Thanks for playing!`);
+        $("#a1").hide();
+        $("#a2").hide();
+        $("#a3").hide();
+        $("#a4").hide();
+    },
+
+    //Restarts game values and questions
+    newGame:function(){
+        $("#newGameBtn").remove();
+        $(".fa-pause-circle").show();
+        tE.wins = 0;
+        tE.losses = 0;
+        tE.questions = tE.askedQ;
+        tE.askedQ = [];
+        $("#a1").show();
+        $("#a2").show();
+        $("#a3").show();
+        $("#a4").show();
+        $("#grades").children("h4").text("Grades");
+        $("#wins").text("Wins: 0");
+        $("#losses").text("Losses: 0");
+        tE.newQ();
     }
 }
 
@@ -209,6 +274,10 @@ $(document).ready(function() {
         tE.resume();
     });
 
+    //Start new game
+    $(document).on("click", "#newGameBtn",function() {
+        tE.newGame();
+    });
 });
 
 //Generate a number between min(inclusive) and max(exclusive)
