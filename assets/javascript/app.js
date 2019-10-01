@@ -314,7 +314,7 @@ $(document).ready(function() {
     });
 
     //When touching an anser (mobile)
-    $(document).on("touchstart", ".answer",function() {
+    $(document).on("touchend", ".answer",function() {
         tE.checkA($(this).attr('id').toString());
     });
 
@@ -324,7 +324,7 @@ $(document).ready(function() {
     });
 
     //When touching pause bell (mobile)
-    $(document).on("touchstart", ".fa-pause-circle",function() {
+    $(document).on("touchend", ".fa-pause-circle",function() {
         tE.pause();
     });
 
@@ -334,7 +334,7 @@ $(document).ready(function() {
     });
 
     //When touching resume bell (mobile)
-    $(document).on("touchstart", ".fa-play-circle",function() {
+    $(document).on("touchend", ".fa-play-circle",function() {
         tE.resume();
     });
 
