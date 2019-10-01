@@ -264,13 +264,13 @@ let tE = {
                 <i class="fa fa-thumbtack tack"></i>
                 <h3 class="text">Settings</h3>
                 <p>
-                    <span class="magnetsSettings unselectable" id="plusQTime">+</span>
-                    <span class="magnetsSettings unselectable" id="minusQTime">-</span>
+                    <button class="magnetsSettings unselectable" id="plusQTime">+</button>
+                    <button class="magnetsSettings unselectable" id="minusQTime">-</button>
                     Time for questions: <span id=qTime>${tE.questionTime}</span> seconds
                 </p>
                 <p>
-                    <span class="magnetsSettings unselectable" id="plusWTime">+</span>
-                    <span class="magnetsSettings unselectable" id="minusWTime">-</span>
+                    <button class="magnetsSettings unselectable" id="plusWTime">+</button>
+                    <button class="magnetsSettings unselectable" id="minusWTime">-</button>
                     Time between questions: <span id=wTime>${tE.waitTime}</span> seconds
                 </p>
             </div>`);
@@ -313,13 +313,28 @@ $(document).ready(function() {
         tE.checkA($(this).attr('id').toString());
     });
 
+    //When touching an anser (mobile)
+    $(document).on("touchstart", ".answer",function() {
+        tE.checkA($(this).attr('id').toString());
+    });
+
     //When clicking pause bell
     $(document).on("click", ".fa-pause-circle",function() {
         tE.pause();
     });
 
+    //When touching pause bell (mobile)
+    $(document).on("touchstart", ".fa-pause-circle",function() {
+        tE.pause();
+    });
+
     //When clicking resume bell
     $(document).on("click", ".fa-play-circle",function() {
+        tE.resume();
+    });
+
+    //When touching resume bell (mobile)
+    $(document).on("touchstart", ".fa-play-circle",function() {
         tE.resume();
     });
 

@@ -111,12 +111,20 @@ p{
 .pauseResume{
     display: block;
     position: absolute;
-    top:2.14em;
+    top:2.145em;
     right:3.2em;
     margin: 0;
     padding: 0;
     font-size: 1.5em;
     color:greenyellow;
+}
+
+.pauseResume:hover{
+    cursor: pointer;
+}
+
+.fa-minus-circle:hover{
+    cursor: default;
 }
 
 .unselectable {
@@ -126,6 +134,12 @@ p{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+button{
+    background: transparent;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
 }
 
 #mainContent{
