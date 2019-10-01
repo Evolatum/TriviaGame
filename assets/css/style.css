@@ -151,8 +151,16 @@ button{
         font-size: 2.4em;
     }
 
+    .magnetsSettings{
+        font-size:1.5em;
+    }
+
     .corkBoard{
         padding-top: 5.7em;
+    }
+
+    .paper{
+        padding:.8em;
     }
 
     .clock{
@@ -165,6 +173,18 @@ button{
         top:2.04em;
         left:6.6em;
 
+    }
+
+    h3{
+        font-size:1.6rem;
+    }
+    
+    h4{
+        font-size: 1.4rem;
+    }
+    
+    p{
+        font-size:1.1rem;
     }
 }
 
