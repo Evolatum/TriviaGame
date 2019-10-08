@@ -109,6 +109,7 @@ let tE = {
         tE.onTimeout=false;
         tE.hideMarks();
         tE.playing=true;
+        tE.clickableA(true);
         clock.start(tE.questionTime);
         tE.currentQ = randomNumE(tE.questions.length);
         tE.currentA = tE.questions[tE.currentQ].correctA;
@@ -136,6 +137,7 @@ let tE = {
     //Method called if correct answer was chosen
     rightA:function(){
         tE.playing = false;
+        tE.clickableA(false);
         clock.stop();
         $("#question").children("h3").text("Quiz Passed!");
         $("#question").children("p").text(`
@@ -150,6 +152,7 @@ let tE = {
     //Method calld if wrong anser was chosen
     wrongA:function(selectedA){
         tE.playing = false;
+        tE.clickableA(false);
         clock.stop();
         $("#question").children("h3").text("Quiz Failed!");
         $("#question").children("p").text(`
@@ -165,6 +168,7 @@ let tE = {
     //Method called if time to answer runs out
     timeUp:function(){
         tE.playing=false;
+        tE.clickableA(false);
         $("#question").children("h3").text("Absence!");
         $("#question").children("p").text(`
             You were checked as absent for the Pop Quiz, the correct answer was ${tE.currentA}.`);
@@ -182,6 +186,7 @@ let tE = {
         } else{
             clock.stop();
             tE.playing=false;
+            tE.clickableA(false);
         }
         $(".fa-pause-circle").hide();
         $(".fa-play-circle").show();
@@ -194,6 +199,7 @@ let tE = {
         } else{
             clock.resume();
             tE.playing=true;
+            tE.clickableA(true);
         }
         $(".fa-pause-circle").show();
         $(".fa-play-circle").hide();
@@ -204,6 +210,7 @@ let tE = {
         tE.askedQ.push(tE.questions.splice(tE.currentQ,1)[0]);
         if(tE.questions.length <= 0){
             tE.playing = false;
+            tE.clickableA(false);
             $(".fa-pause-circle").hide();
             $(".fa-play-circle").hide();
             $(".fa-minus-circle").show();
@@ -301,6 +308,21 @@ let tE = {
                 }
                 break;
           } 
+    },
+
+    //Makes questions clickable/unclickable
+    clickableA:function(playing){
+        if(playing){
+            $("#a1").addClass("clickable");
+            $("#a2").addClass("clickable");
+            $("#a3").addClass("clickable");
+            $("#a4").addClass("clickable");
+        }else{
+            $("#a1").removeClass("clickable");
+            $("#a2").removeClass("clickable");
+            $("#a3").removeClass("clickable");
+            $("#a4").removeClass("clickable");
+        }
     }
 }
 
